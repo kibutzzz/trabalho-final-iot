@@ -11,7 +11,7 @@
         "type": "mqtt in",
         "z": "f6f2187d.f17ca8",
         "name": "",
-        "topic": "esp32/sensor",
+        "topic": "esp32/temperature",
         "qos": "2",
         "datatype": "auto-detect",
         "broker": "36aefda4b5671193",
@@ -19,7 +19,7 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 90,
+        "x": 110,
         "y": 100,
         "wires": [
             [
@@ -35,7 +35,7 @@
         "property": "payload",
         "action": "obj",
         "pretty": false,
-        "x": 270,
+        "x": 330,
         "y": 100,
         "wires": [
             [
@@ -69,7 +69,7 @@
         "seg2": "",
         "diff": false,
         "className": "",
-        "x": 460,
+        "x": 520,
         "y": 40,
         "wires": []
     },
@@ -97,7 +97,7 @@
         "seg2": "",
         "diff": false,
         "className": "",
-        "x": 450,
+        "x": 510,
         "y": 160,
         "wires": []
     },
@@ -116,6 +116,172 @@
         "statusType": "auto",
         "x": 630,
         "y": 100,
+        "wires": []
+    },
+    {
+        "id": "566987b2ecb0f0ba",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "topic": "esp32/gas-leak",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "36aefda4b5671193",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 100,
+        "y": 300,
+        "wires": [
+            [
+                "781a829b9426eca5"
+            ]
+        ]
+    },
+    {
+        "id": "781a829b9426eca5",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 270,
+        "y": 300,
+        "wires": [
+            [
+                "8d569d1c0393d117",
+                "6b19eadd21b57c1b"
+            ]
+        ]
+    },
+    {
+        "id": "8d569d1c0393d117",
+        "type": "ui_gauge",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "group": "0b47a2b73fb96b97",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Unidade de medida Gás",
+        "label": "units",
+        "format": "msg.payload.temp",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 470,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "6b19eadd21b57c1b",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 430,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "e16b43a543c5010a",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "topic": "esp32/lighting",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "36aefda4b5671193",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 90,
+        "y": 500,
+        "wires": [
+            [
+                "b69d0cb687f59332"
+            ]
+        ]
+    },
+    {
+        "id": "b69d0cb687f59332",
+        "type": "json",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 270,
+        "y": 500,
+        "wires": [
+            [
+                "11e10e64204f6bbf",
+                "9b10e94c98c2a85e"
+            ]
+        ]
+    },
+    {
+        "id": "11e10e64204f6bbf",
+        "type": "ui_gauge",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "group": "0b47a2b73fb96b97",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Unidade de medida iluminação",
+        "label": "units",
+        "format": "msg.payload.temp",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 510,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "9b10e94c98c2a85e",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 450,
+        "y": 540,
         "wires": []
     },
     {
@@ -169,7 +335,7 @@
         "hidden": false
     },
     {
-        "id": "7e575aba92b483a1",
+        "id": "ddce84d0f2351012",
         "type": "global-config",
         "env": [],
         "modules": {
