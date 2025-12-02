@@ -41,10 +41,19 @@ Sistema de monitoramento inteligente para ambientes residenciais focado na segur
 
 ## Rodando o projeto
 
+### Node-RED
 É necessário que o Node-RED seja inicializado com os flows configurados para cada unidade de medida captada e com as dependências necessárias.
-Para isso foi criado o `Dockerfile` e o `docker-compose.yaml`, para inicializar o servidor Node-RED, basta rodar:
+
+O servidor do Node-RED pode ser inicializado de duas maneiras:
+
+Utilizando Docker:
 ```sh
 docker compose up nodered -d
+```
+Utilizando npm com o script criado:
+```sh
+chmod +x ./setup-node-red.sh
+./setup-node-red.sh
 ```
 
 - `http://localhost:1800/ui` - acesso aos dashboards com as informações atuais de gás, temperatura e iluminação.
