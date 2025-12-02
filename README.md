@@ -39,6 +39,11 @@ Sistema de monitoramento inteligente para ambientes residenciais focado na segur
 - Comandos enviados de volta aos dispositivos via MQTT para ações automatizadas
 
 
+### Diagrama
+
+![Arquitetura em alto nivel](./high-level-architecture.svg)
+
+
 ## Rodando o projeto
 
 ### Node-RED
@@ -58,3 +63,4 @@ chmod +x ./setup-node-red.sh
 
 - `http://localhost:1800/ui` - acesso aos dashboards com as informações atuais de gás, temperatura e iluminação.
 - `http://localhost:1880` - acesso aos flows que captam os dados e disponibilizam no dashboard
+
