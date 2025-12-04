@@ -6,7 +6,8 @@ const char* ssid = "Wokwi-GUEST";
 const char* password = "";
 
 // ------------------ CONFIG MQTT ---------------------
-const char* mqtt_server = "test.mosquitto.org";  
+// TODO: Rename to MQTT broker server
+const char* mqtt_server = "test.mosquitto.org";
 const char* mqtt_topic  = "esp32/gas";
 
 WiFiClient espClient;
