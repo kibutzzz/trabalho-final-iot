@@ -1,173 +1,65 @@
-📘 Sensor de Luz e Movimento
+# Sensor de Luz e Movimento
 
-Monitoramento de luminosidade e detecção de presença com ESP32
+## Hardware
 
-🧩
- Hardware
+- **ESP32**: Microcontrolador principal
+- **PIR**: Sensor de movimento (detecção de presença)
+- **LDR**: Fotoresistor para medir luminosidade
 
-ESP32 – Microcontrolador principal
+### Conexões
+- PIR → GPIO 26
+- LDR → GPIO 34 (ADC)
 
-PIR – Sensor de movimento (detecção de presença)
+## Funcionamento
 
-LDR – Fotoresistor para medir luminosidade
+1. Leitura contínua do sensor PIR para detectar presença
+2. Leitura do LDR para medir intensidade de luminosidade
+3. Geração de um JSON com os valores atuais
+4. Envio dos dados via MQTT para o servidor (ex.: Node-RED)
 
-Pinos utilizados:
+## Comunicação MQTT
 
-PIR → GPIO 26
-
-LDR → GPIO 34 (ADC)
-
-⚙️
- Funcionamento
-
-O sistema executa continuamente:
-
-Leitura do PIR para detectar movimento
-
-Leitura do LDR para medir a intensidade luminosa
-
-Geração de um JSON contendo o estado atual
-
-Envio dos dados via MQTT para o servidor (ex: Node-RED)
-
-📡
- Comunicação MQTT
-Tópico
+### Tópico
+```
 iot/movimento/luz
+```
 
-Formato JSON enviado
+### Formato JSON
+```json
 {
   "ambiente_id": "sala",
   "movimento": 1,
   "luz": 1234,
   "timestamp": "2024-01-01T12:00:00Z"
 }
+```
 
-Parâmetros
-Campo    Tipo    Descrição
-ambiente_id    string    Nome do ambiente monitorado
-movimento    int    1 = movimento detectado, 0 = sem movimento
-luz    int    Nível de luminosidade (0–4095)
-timestamp    string    Data/hora ISO 8601 da leitura
-🔗
- Integração com Node-RED
+### Parâmetros
+- **ambiente_id**: Nome do ambiente monitorado
+- **movimento**: 1 = movimento detectado, 0 = sem movimento
+- **luz**: Nível de luminosidade (0–4095)
+- **timestamp**: Data/hora da leitura no formato ISO 8601
 
-O Node-RED pode:
+## Integração com Node-RED
 
-Receber os dados via MQTT
+O servidor Node-RED pode:
+1. Receber dados via MQTT
+2. Identificar ambientes escuros com presença detectada
+3. Acionar iluminação automaticamente
+4. Registrar histórico de luminosidade
+5. Enviar alertas ou notificações
+6. Criar dashboards com gráficos e indicadores
 
-Identificar ambientes escuros com movimento
+## Configuração
 
-Acender luzes automaticamente
+### Bibliotecas Necessárias
+- WiFi
+- PubSubClient (MQTT)
 
-Registrar histórico de luminosidade
+## Extensões Futuras
 
-Enviar alertas ou notificações
-
-Criar dashboards com gráficos e indicadores
-
-🛠️
- Configuração
-Bibliotecas Necessárias
-
-WiFi
-
-PubSubClient
-
-Ambas disponíveis pelo gerenciador de bibliotecas da Arduino IDE.
-
-💾
- Código Completo (ESP32 + PIR + LDR + MQTT)
-#include <WiFi.h>
-#include <PubSubClient.h>
-
-// ------------------ CONFIG WIFI ---------------------
-const char* ssid = "Wokwi-GUEST";
-const char* password = "";
-
-// ------------------ CONFIG MQTT ---------------------
-const char* mqtt_server = "broker.hivemq.com";
-const char* mqtt_topic  = "iot/movimento/luz";
-
-// ------------------ PINOS DOS SENSORES ---------------------
-const int PIR_PIN = 26;   // PIR Motion Sensor
-const int LDR_PIN = 34;   // LDR (Fotoresistor)
-
-// ------------------ MQTT CLIENT ---------------------
-WiFiClient espClient;
-PubSubClient client(espClient);
-
-void connectWiFi() {
-  Serial.print("Conectando ao WiFi");
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("\nWiFi conectado!");
-}
-
-void connectMQTT() {
-  Serial.print("Conectando ao MQTT...");
-  while (!client.connected()) {
-    if (client.connect("ESP32_PIR_LDR")) {
-      Serial.println(" conectado!");
-    } else {
-      Serial.print(" falhou, rc=");
-      Serial.print(client.state());
-      Serial.println(" tentando novamente em 2s");
-      delay(2000);
-    }
-  }
-}
-
-void setup() {
-  Serial.begin(115200);
-  pinMode(PIR_PIN, INPUT);
-  pinMode(LDR_PIN, INPUT);
-
-  connectWiFi();
-  client.setServer(mqtt_server, 1883);
-  connectMQTT();
-
-  Serial.println("Sistema MQTT com PIR + LDR iniciado!");
-}
-
-void loop() {
-  if (!client.connected()) {
-    connectMQTT();
-  }
-  client.loop();
-
-  int movimento = digitalRead(PIR_PIN);
-  int luz = analogRead(LDR_PIN);
-
-  const char* ambiente = "sala";
-  const char* timestamp = "2024-01-01T12:00:00Z"; // substitua por NTP futuramente
-
-  char payload[256];
-  snprintf(payload, sizeof(payload),
-    "{ "ambiente_id": "%s", "movimento": %d, "luz": %d, "timestamp": "%s" }",
-    ambiente, movimento, luz, timestamp
-  );
-
-  client.publish(mqtt_topic, payload);
-
-  Serial.print("Payload enviado: ");
-  Serial.println(payload);
-
-  delay(1000);
-}
-
-🔧
- Extensões Futuras
-
-Timestamp automático via NTP
-
-Enviar somente quando houver mudança
-
-Acender lâmpadas com relé
-
-Dashboard completo no Node-RED
-
-Sistema integrado com sensor de temperatura
+- Timestamp automático via NTP
+- Envio apenas quando houver mudança nos valores
+- Acionamento de lâmpadas com relé
+- Dashboard completo no Node-RED
+- Integração com sensor de temperatura
