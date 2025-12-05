@@ -391,7 +391,8 @@
         "wires": [
             [
                 "11e10e64204f6bbf",
-                "9b10e94c98c2a85e"
+                "9b10e94c98c2a85e",
+                "cac656b3a30d4dd3"
             ]
         ]
     },
@@ -437,7 +438,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 450,
-        "y": 540,
+        "y": 580,
         "wires": []
     },
     {
@@ -573,5 +574,43 @@
                 "5d67959d4a2f9ed1"
             ]
         ]
+    },
+    {
+        "id": "cac656b3a30d4dd3",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "function 3",
+        "func": "if (msg.payload.movimento == 1) {\n    if (msg.payload.luz < 400) {\n        msg.payload = \"on\"\n        return msg;\n    }\n}\nmsg.payload = \"off\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 500,
+        "wires": [
+            [
+                "e4f250143ffd193b"
+            ]
+        ]
+    },
+    {
+        "id": "e4f250143ffd193b",
+        "type": "mqtt out",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "topic": "home/lamp/status",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "36aefda4b5671193",
+        "x": 870,
+        "y": 500,
+        "wires": []
     }
 ]
