@@ -287,8 +287,8 @@
     {
         "id": "36aefda4b5671193",
         "type": "mqtt-broker",
-        "name": "Local Mosquitto",
-        "broker": "mosquitto",
+        "name": "MQTT Broker",
+        "broker": "${MQTT_BROKER}",
         "port": 1883,
         "clientid": "",
         "autoConnect": true,
