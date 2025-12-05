@@ -4,5 +4,5 @@ dockerfilePath = "Dockerfile"
 
 [deploy]
 startCommand = "mosquitto -c /mosquitto/config/mosquitto.conf"
-restartPolicyType = "always"
+restartPolicyType = "on_failure"
 

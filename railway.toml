@@ -3,7 +3,7 @@ builder = "dockerfile"
 dockerfilePath = "Dockerfile"
 
 [deploy]
-restartPolicyType = "always"
+restartPolicyType = "on_failure"
 healthcheckPath = "/"
 healthcheckTimeout = 300
 
