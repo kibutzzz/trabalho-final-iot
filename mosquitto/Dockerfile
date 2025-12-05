@@ -10,6 +10,6 @@ RUN mkdir -p /mosquitto/data /mosquitto/log && \
 # Expõe as portas MQTT (TCP) e WebSocket
 EXPOSE 1883 9001
 
-# Comando padrão
-CMD ["mosquitto", "-c", "/mosquitto/config/mosquitto.conf"]
+# Comando padrão (caminho completo necessário para Railway)
+CMD ["/usr/sbin/mosquitto", "-c", "/mosquitto/config/mosquitto.conf"]
 
