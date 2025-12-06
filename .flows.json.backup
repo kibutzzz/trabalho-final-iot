@@ -580,7 +580,7 @@
         "type": "function",
         "z": "f6f2187d.f17ca8",
         "name": "function 3",
-        "func": "if (msg.payload.movimento == 1) {\n    if (msg.payload.luz == 0) {\n        msg.payload = \"on\"\n        return msg;\n    }\n}\nmsg.payload = \"off\";\nreturn msg;",
+        "func": "if (msg.payload.movimento == 1) {\n    if (msg.payload.luz < 400) {\n        msg.payload = \"on\"\n        return msg;\n    }\n}\nmsg.payload = \"off\";\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
